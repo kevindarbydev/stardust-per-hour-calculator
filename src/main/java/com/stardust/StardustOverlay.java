@@ -1,6 +1,7 @@
 package com.stardust;
 
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.overlay.Overlay;
@@ -25,17 +26,16 @@ public class StardustOverlay extends Overlay {
 
 
     @Inject
-    private StardustOverlay(Client client)
-    {
+    private StardustOverlay(Client client) {
         setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
         this.client = client;
     }
 
     @Subscribe
-    public void onStardustPerHourUpdate(StardustPerHourUpdate event)
-    {
+    public void onStardustPerHourUpdate(StardustPerHourUpdate event) {
         stardustPerHour = event.getStardustPerHour();
     }
+
     @Override
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
@@ -52,21 +52,18 @@ public class StardustOverlay extends Overlay {
                 graphics.getFontMetrics().stringWidth(overlayTitle) + 30,
                 0));
 
+        if (client.getGameState() == GameState.LOGGED_IN) {
+            if (client.getItemContainer(InventoryID.INVENTORY).contains(STARDUST_ID)) {
 
-        if (client.getItemContainer(InventoryID.INVENTORY).contains(STARDUST_ID)) {
-//            panelComponent.getChildren().add(LineComponent.builder()
-//                    .left("Count:")
-//                    .right(Integer.toString(client.getItemContainer(InventoryID.INVENTORY).count(STARDUST_ID)))
-//                    .build());
+                int displayRate = (int) Double.parseDouble(decimalFormat.format(stardustPerHour));
 
-            int displayRate = (int) Double.parseDouble(decimalFormat.format(stardustPerHour));
-
-            panelComponent.getChildren().add(LineComponent.builder()
-                    .left("Dust/Hr:")
-                    .right(String.valueOf(displayRate))
-                    .build());
+                panelComponent.getChildren().add(LineComponent.builder()
+                        .left("Dust/Hr:")
+                        .right(String.valueOf(displayRate))
+                        .build());
+            }
         }
-
         return panelComponent.render(graphics);
+
     }
 }
