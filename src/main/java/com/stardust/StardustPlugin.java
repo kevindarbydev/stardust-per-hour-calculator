@@ -48,8 +48,7 @@ public class StardustPlugin extends Plugin
 				int count = event.getItemContainer().count(STARDUST_ID);
 				if (!isCounting)
 				{
-					// Start tracking stardust count and time
-					isCounting = true;
+					isCounting = true; // start tracking stardust count and time
 					initialStardustCount = count;
 					startTimeMillis = System.currentTimeMillis();
 				}
@@ -59,6 +58,9 @@ public class StardustPlugin extends Plugin
 
 					eventBus.post(new StardustPerHourUpdate(stardustPerHour));
 				}
+			} else {
+				//inv no longer contains stardust, reset
+				isCounting = false;
 			}
 		}
 	}
@@ -74,26 +76,16 @@ public class StardustPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		// Register the plugin class with the event bus
 		eventBus.register(this);
-
-		// Register the overlay class with the event bus
 		eventBus.register(overlay);
-
-		// Add the overlay to the overlay manager
 		overlayManager.add(overlay);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		// Unregister the plugin class from the event bus
 		eventBus.unregister(this);
-
-		// Unregister the overlay class from the event bus
 		eventBus.unregister(overlay);
-
-		// Remove the overlay from the overlay manager
 		overlayManager.remove(overlay);
 	}
 
