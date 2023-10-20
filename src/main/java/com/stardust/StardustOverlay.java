@@ -17,13 +17,10 @@ import java.text.DecimalFormat;
 public class StardustOverlay extends Overlay {
 
     private final Client client;
-
     private final int STARDUST_ID = 25527;
     private double stardustPerHour;
     private final PanelComponent panelComponent = new PanelComponent();
-
     DecimalFormat decimalFormat = new DecimalFormat("#");
-
 
     @Inject
     private StardustOverlay(Client client) {
