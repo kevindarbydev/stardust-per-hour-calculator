@@ -38,19 +38,19 @@ public class StardustOverlay extends Overlay {
         panelComponent.getChildren().clear();
         String overlayTitle = "Stardust/HR:";
 
-        // Build overlay title
-        panelComponent.getChildren().add(TitleComponent.builder()
-                .text(overlayTitle)
-                .color(Color.GREEN)
-                .build());
-
-        // Set the size of the overlay (width)
-        panelComponent.setPreferredSize(new Dimension(
-                graphics.getFontMetrics().stringWidth(overlayTitle) + 30,
-                0));
-
         if (client.getGameState() == GameState.LOGGED_IN) {
             if (client.getItemContainer(InventoryID.INVENTORY).contains(STARDUST_ID)) {
+
+                // Build overlay title
+                panelComponent.getChildren().add(TitleComponent.builder()
+                        .text(overlayTitle)
+                        .color(Color.GREEN)
+                        .build());
+
+                // Set the size of the overlay (width)
+                panelComponent.setPreferredSize(new Dimension(
+                        graphics.getFontMetrics().stringWidth(overlayTitle) + 30,
+                        0));
 
                 int displayRate = (int) Double.parseDouble(decimalFormat.format(stardustPerHour));
 
@@ -61,6 +61,5 @@ public class StardustOverlay extends Overlay {
             }
         }
         return panelComponent.render(graphics);
-
     }
 }
