@@ -59,8 +59,7 @@ public class StardustPlugin extends Plugin
 					eventBus.post(new StardustPerHourUpdate(stardustPerHour));
 				}
 			} else {
-				//inv no longer contains stardust, reset
-				isCounting = false;
+				isCounting = false; //inv no longer contains stardust, reset
 			}
 		}
 	}
@@ -71,6 +70,11 @@ public class StardustPlugin extends Plugin
 		int stardustReceived = newCount - startCount;
 
 		return stardustReceived / elapsedTimeHours;
+	}
+	private void resetStardustCount() {
+		isCounting = false;
+		stardustPerHour = 0;
+		overlay.resetStardustPerHour(); // Notify overlay to reset display
 	}
 
 	@Override
@@ -86,6 +90,7 @@ public class StardustPlugin extends Plugin
 	{
 		eventBus.unregister(this);
 		eventBus.unregister(overlay);
+		resetStardustCount();
 		overlayManager.remove(overlay);
 	}
 

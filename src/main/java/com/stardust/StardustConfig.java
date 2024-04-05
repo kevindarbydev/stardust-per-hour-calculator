@@ -4,22 +4,27 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
+import java.awt.*;
+
 @ConfigGroup("stardust")
 public interface StardustConfig extends Config
 {
-
 	@ConfigItem(
-			keyName = "stardustPerHour",
-			name = "Stardust per Hour",
-			description = "Calculates the stardust per hour",
+			keyName = "resetButton",
+			name = "Reset Stardust Per Hour",
+			description = "Click to reset stardust per hour calculation",
 			position = 1
 	)
-	default int stardustPerHour(long startTimeMillis, long currentTimeMillis, int startCount, int newCount){
-		long elapsedTimeMillis = currentTimeMillis - startTimeMillis;
-		double elapsedTimeHours = elapsedTimeMillis / (1000.0 * 60 * 60);
-		int stardustReceived = newCount - startCount;
-
-		double stardustPerHour = stardustReceived / elapsedTimeHours;
-		return (int) stardustPerHour;
+	default Button resetButton() {
+		return new Button();
+	}
+	@ConfigItem(
+			keyName = "textColor",
+			name = "Text Color",
+			description = "Choose the color of the text",
+			position = 2
+	)
+	default Color textColor() {
+		return Color.GREEN; // Default color
 	}
 }

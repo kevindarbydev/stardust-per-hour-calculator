@@ -19,6 +19,8 @@ public class StardustOverlay extends Overlay {
     private final Client client;
     private final int STARDUST_ID = 25527;
     private double stardustPerHour;
+    private Color textColor = Color.GREEN;
+    private Color[] colorChoices = { Color.GREEN, Color.RED, Color.BLACK, Color.BLACK, Color.YELLOW, Color.ORANGE, Color.PINK, Color.CYAN, Color.WHITE, Color.MAGENTA, Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY };
     private final PanelComponent panelComponent = new PanelComponent();
     DecimalFormat decimalFormat = new DecimalFormat("#");
 
@@ -44,7 +46,7 @@ public class StardustOverlay extends Overlay {
                 // Build overlay title
                 panelComponent.getChildren().add(TitleComponent.builder()
                         .text(overlayTitle)
-                        .color(Color.GREEN)
+                        .color(textColor) // impl textColor variable
                         .build());
 
                 // Set the size of the overlay (width)
@@ -61,5 +63,10 @@ public class StardustOverlay extends Overlay {
             }
         }
         return panelComponent.render(graphics);
+    }
+
+    // Method to reset stardust per hour display
+    public void resetStardustPerHour() {
+        stardustPerHour = 0;
     }
 }
