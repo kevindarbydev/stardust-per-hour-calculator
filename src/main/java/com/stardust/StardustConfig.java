@@ -6,7 +6,7 @@ import net.runelite.client.config.ConfigItem;
 
 import java.awt.Color;
 
-@ConfigGroup("stardust")
+@ConfigGroup("com.stardust")
 public interface StardustConfig extends Config
 {
 	@ConfigItem(
