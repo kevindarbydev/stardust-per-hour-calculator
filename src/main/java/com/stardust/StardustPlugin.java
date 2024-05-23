@@ -3,13 +3,13 @@ package com.stardust;
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -22,7 +22,6 @@ public class StardustPlugin extends Plugin
 {
 	@Inject
 	private Client client;
-
 	@Inject
 	private EventBus eventBus;
 	@Inject
@@ -31,7 +30,6 @@ public class StardustPlugin extends Plugin
 	private StardustOverlay overlay;
 	@Inject
 	private StardustConfig config;
-
 	private boolean isCounting;
 	private int initialStardustCount;
 	private long startTimeMillis;
@@ -59,7 +57,7 @@ public class StardustPlugin extends Plugin
 					eventBus.post(new StardustPerHourUpdate(stardustPerHour));
 				}
 			} else {
-				isCounting = false; //inv no longer contains stardust, reset
+				isCounting = false; // inv no longer contains stardust, reset
 			}
 		}
 	}
@@ -93,7 +91,6 @@ public class StardustPlugin extends Plugin
 		resetStardustCount();
 		overlayManager.remove(overlay);
 	}
-
 
 	@Provides
 	StardustConfig provideConfig(ConfigManager configManager)

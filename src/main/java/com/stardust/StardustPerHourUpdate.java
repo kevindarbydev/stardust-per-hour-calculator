@@ -13,7 +13,5 @@ public class StardustPerHourUpdate
     {
         return stardustPerHour;
     }
-
-    public void resetStardustPerHour() { stardustPerHour = 0; }
 }
 
