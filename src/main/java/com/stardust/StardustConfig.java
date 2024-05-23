@@ -4,27 +4,16 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-import java.awt.*;
+import java.awt.Color;
 
 @ConfigGroup("stardust")
 public interface StardustConfig extends Config
 {
 	@ConfigItem(
-			keyName = "resetButton",
-			name = "Reset Stardust Per Hour",
-			description = "Click to reset stardust per hour calculation",
-			position = 1
+			position = 1,
+			keyName = "textColorChoice",
+			name= "Color Selector",
+			description = "Choose the color of the text box"
 	)
-	default Button resetButton() {
-		return new Button();
-	}
-	@ConfigItem(
-			keyName = "textColor",
-			name = "Text Color",
-			description = "Choose the color of the text",
-			position = 2
-	)
-	default Color textColor() {
-		return Color.GREEN; // Default color
-	}
+	default Color colorConfig() { return Color.GREEN; }
 }
