@@ -4,6 +4,7 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
@@ -19,10 +20,11 @@ public class StardustOverlay extends Overlay {
     private final Client client;
     private final int STARDUST_ID = 25527;
     private double stardustPerHour;
-    private Color textColor = Color.GREEN;
-    private Color[] colorChoices = { Color.GREEN, Color.RED, Color.BLACK, Color.BLACK, Color.YELLOW, Color.ORANGE, Color.PINK, Color.CYAN, Color.WHITE, Color.MAGENTA, Color.LIGHT_GRAY, Color.GRAY, Color.DARK_GRAY };
     private final PanelComponent panelComponent = new PanelComponent();
     DecimalFormat decimalFormat = new DecimalFormat("#");
+
+    @Inject
+    private StardustConfig config;
 
     @Inject
     private StardustOverlay(Client client) {
@@ -38,18 +40,16 @@ public class StardustOverlay extends Overlay {
     @Override
     public Dimension render(Graphics2D graphics) {
         panelComponent.getChildren().clear();
-        String overlayTitle = "Stardust/HR:";
+        String overlayTitle = "Stardust per hour:";
 
         if (client.getGameState() == GameState.LOGGED_IN) {
             if (client.getItemContainer(InventoryID.INVENTORY).contains(STARDUST_ID)) {
 
-                // Build overlay title
                 panelComponent.getChildren().add(TitleComponent.builder()
                         .text(overlayTitle)
-                        .color(textColor) // impl textColor variable
+                        .color(config.colorConfig()) // update to use color from config
                         .build());
 
-                // Set the size of the overlay (width)
                 panelComponent.setPreferredSize(new Dimension(
                         graphics.getFontMetrics().stringWidth(overlayTitle) + 30,
                         0));
@@ -65,8 +65,9 @@ public class StardustOverlay extends Overlay {
         return panelComponent.render(graphics);
     }
 
-    // Method to reset stardust per hour display
+    // Method to reset stardust per hour
     public void resetStardustPerHour() {
         stardustPerHour = 0;
     }
+
 }
