@@ -16,7 +16,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Stardust Per Hour Calculator"
+	name = "Stardust Per Hour"
 )
 public class StardustPlugin extends Plugin
 {
@@ -72,7 +72,8 @@ public class StardustPlugin extends Plugin
 	private void resetStardustCount() {
 		isCounting = false;
 		stardustPerHour = 0;
-		overlay.resetStardustPerHour(); // Notify overlay to reset display
+		// Notify overlay to reset to 0 right away
+		overlay.resetStardustPerHour(); //rather than wait for next update
 	}
 
 	@Override
@@ -81,6 +82,11 @@ public class StardustPlugin extends Plugin
 		eventBus.register(this);
 		eventBus.register(overlay);
 		overlayManager.add(overlay);
+	}
+
+	@Override
+	public void resetConfiguration(){
+		resetStardustCount();
 	}
 
 	@Override

@@ -65,7 +65,8 @@ public class StardustOverlay extends Overlay {
         return panelComponent.render(graphics);
     }
 
-    // Method to reset stardust per hour
+    // Complimentary method to reset stardust per hour in overlay
+    // fired from resetConfiguration() in StardustPlugin
     public void resetStardustPerHour() {
         stardustPerHour = 0;
     }
