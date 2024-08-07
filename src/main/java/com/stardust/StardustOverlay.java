@@ -4,7 +4,6 @@ import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.LineComponent;
@@ -16,13 +15,11 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 public class StardustOverlay extends Overlay {
-
     private final Client client;
     private final int STARDUST_ID = 25527;
     private double stardustPerHour;
     private final PanelComponent panelComponent = new PanelComponent();
-    DecimalFormat decimalFormat = new DecimalFormat("#");
-
+    private final DecimalFormat decimalFormat = new DecimalFormat("#");
     @Inject
     private StardustConfig config;
 
@@ -70,5 +67,4 @@ public class StardustOverlay extends Overlay {
     public void resetStardustPerHour() {
         stardustPerHour = 0;
     }
-
 }
